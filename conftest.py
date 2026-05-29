@@ -67,7 +67,7 @@ def mobile_management():
     session_id = driver.session_id
 
     attachments.add_screenshot("Screenshot after test")
-    attachments.add_page_source(driver)
+    attachments.add_page_source()
 
     browser.quit()
 
