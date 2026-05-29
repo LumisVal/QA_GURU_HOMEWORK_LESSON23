@@ -1,57 +1,66 @@
 import os
 
 import pytest
-
+from appium import webdriver
 from appium.options.android import UiAutomator2Options
-from selene import browser
-from selenium import webdriver
+from selene.support.shared import browser
 
 from config.settings import settings
 
 
+def is_bstack():
+    return os.getenv("CONTEXT") == "bstack"
+
+
+def create_bstack_options():
+    options = UiAutomator2Options()
+
+    options.platform_name = "Android"
+    options.app = settings.android_app
+
+    options.set_capability(
+        "bstack:options",
+        {
+            "userName": settings.browserstack_user,
+            "accessKey": settings.browserstack_key,
+            "deviceName": settings.android_device,
+            "osVersion": settings.android_os_version,
+            "projectName": settings.project_name,
+            "buildName": settings.build_name,
+            "sessionName": settings.session_name,
+        },
+    )
+
+    return options
+
+
+def create_local_options():
+    options = UiAutomator2Options()
+
+    options.platform_name = "Android"
+    options.device_name = settings.device_name
+    options.platform_version = settings.platform_version
+    options.app = os.path.abspath(settings.app)
+
+    return options
+
+
 @pytest.fixture(scope="function", autouse=True)
 def mobile_management():
-
-    if os.getenv("CONTEXT") == "bstack":
-
-        options = UiAutomator2Options()
-
-        options.set_capability(
-            "bstack:options",
-            {
-                "userName": settings.browserstack_user,
-                "accessKey": settings.browserstack_key,
-                "deviceName": settings.android_device,
-                "osVersion": settings.android_os_version,
-                "projectName": settings.project_name,
-                "buildName": settings.build_name,
-                "sessionName": settings.session_name,
-            }
-        )
-
-        options.set_capability("app", settings.android_app)
-
+    if is_bstack():
         driver = webdriver.Remote(
             command_executor="https://hub.browserstack.com/wd/hub",
-            options=options,
+            options=create_bstack_options(),
         )
-
     else:
-
-        options = UiAutomator2Options()
-
-        options.set_capability("platformName", "Android")
-        options.set_capability("deviceName", settings.device_name)
-        options.set_capability("platformVersion", settings.platform_version)
-        options.set_capability("app", os.path.abspath(settings.app))
-
         driver = webdriver.Remote(
-            "http://127.0.0.1:4723",
-            options=options
+            command_executor="http://127.0.0.1:4723",
+            options=create_local_options(),
         )
 
     browser.config.driver = driver
+    browser.config.timeout = 10
 
     yield
 
-    driver.quit()
+    browser.quit()
