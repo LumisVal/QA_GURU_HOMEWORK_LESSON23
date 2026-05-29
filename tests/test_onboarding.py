@@ -5,7 +5,6 @@ from pages.onboarding_page import OnboardingPage
 
 @allure.title("Wikipedia onboarding")
 def test_onboarding():
-
     page = OnboardingPage()
 
     page.should_see_first_screen()

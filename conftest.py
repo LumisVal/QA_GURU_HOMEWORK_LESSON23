@@ -3,9 +3,10 @@ import os
 import pytest
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
-from selene.support.shared import browser
+from selene import browser
 
 from config.settings import settings
+from utils import attachments
 
 
 def is_bstack():
@@ -62,5 +63,12 @@ def mobile_management():
     browser.config.timeout = 10
 
     yield
+
+    attachments.add_screenshot(driver, "Screenshot after test")
+    attachments.add_page_source(driver)
+
+    if is_bstack():
+        attachments.add_browserstack_session_link(driver.session_id)
+        attachments.add_browserstack_video(driver.session_id)
 
     browser.quit()

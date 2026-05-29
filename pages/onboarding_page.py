@@ -1,10 +1,13 @@
 import allure
 from selene import browser, have
 
+from utils.attachments import add_screenshot
 
+
+# noinspection PyMethodMayBeStatic
 class OnboardingPage:
 
-    @allure.step("Проверить первый экран")
+    @allure.step("Проверить первый экран onboarding")
     def should_see_first_screen(self):
         browser.element(
             ("id", "org.wikipedia.alpha:id/primaryTextView")
@@ -12,7 +15,9 @@ class OnboardingPage:
             have.text("The Free Encyclopedia")
         )
 
-    @allure.step("Проверить второй экран")
+        add_screenshot(browser.driver, "Первый экран onboarding")
+
+    @allure.step("Проверить второй экран onboarding")
     def should_see_second_screen(self):
         browser.element(
             ("id", "org.wikipedia.alpha:id/primaryTextView")
@@ -20,7 +25,9 @@ class OnboardingPage:
             have.text("New ways to explore")
         )
 
-    @allure.step("Проверить третий экран")
+        add_screenshot(browser.driver, "Второй экран onboarding")
+
+    @allure.step("Проверить третий экран onboarding")
     def should_see_third_screen(self):
         browser.element(
             ("id", "org.wikipedia.alpha:id/primaryTextView")
@@ -28,7 +35,9 @@ class OnboardingPage:
             have.text("Reading lists")
         )
 
-    @allure.step("Проверить четвертый экран")
+        add_screenshot(browser.driver, "Третий экран onboarding")
+
+    @allure.step("Проверить четвертый экран onboarding")
     def should_see_fourth_screen(self):
         browser.element(
             ("id", "org.wikipedia.alpha:id/primaryTextView")
@@ -36,14 +45,20 @@ class OnboardingPage:
             have.text("Data & Privacy")
         )
 
+        add_screenshot(browser.driver, "Четвертый экран onboarding")
+
     @allure.step("Нажать Continue")
     def continue_click(self):
         browser.element(
             ("id", "org.wikipedia.alpha:id/fragment_onboarding_forward_button")
         ).click()
 
+        add_screenshot(browser.driver, "После нажатия Continue")
+
     @allure.step("Нажать Get Started")
     def get_started(self):
         browser.element(
             ("id", "org.wikipedia.alpha:id/fragment_onboarding_done_button")
         ).click()
+
+        add_screenshot(browser.driver, "После нажатия Get Started")
