@@ -15,7 +15,7 @@ class OnboardingPage:
             have.text("The Free Encyclopedia")
         )
 
-        add_screenshot(browser.driver, "Первый экран onboarding")
+        add_screenshot( "Первый экран onboarding")
 
     @allure.step("Проверить второй экран onboarding")
     def should_see_second_screen(self):
@@ -25,7 +25,7 @@ class OnboardingPage:
             have.text("New ways to explore")
         )
 
-        add_screenshot(browser.driver, "Второй экран onboarding")
+        add_screenshot( "Второй экран onboarding")
 
     @allure.step("Проверить третий экран onboarding")
     def should_see_third_screen(self):
@@ -35,7 +35,7 @@ class OnboardingPage:
             have.text("Reading lists")
         )
 
-        add_screenshot(browser.driver, "Третий экран onboarding")
+        add_screenshot( "Третий экран onboarding")
 
     @allure.step("Проверить четвертый экран onboarding")
     def should_see_fourth_screen(self):
@@ -45,7 +45,7 @@ class OnboardingPage:
             have.text("Data & Privacy")
         )
 
-        add_screenshot(browser.driver, "Четвертый экран onboarding")
+        add_screenshot( "Четвертый экран onboarding")
 
     @allure.step("Нажать Continue")
     def continue_click(self):
@@ -53,7 +53,7 @@ class OnboardingPage:
             ("id", "org.wikipedia.alpha:id/fragment_onboarding_forward_button")
         ).click()
 
-        add_screenshot(browser.driver, "После нажатия Continue")
+        add_screenshot( "После нажатия Continue")
 
     @allure.step("Нажать Get Started")
     def get_started(self):
@@ -61,4 +61,4 @@ class OnboardingPage:
             ("id", "org.wikipedia.alpha:id/fragment_onboarding_done_button")
         ).click()
 
-        add_screenshot(browser.driver, "После нажатия Get Started")
+        add_screenshot( "После нажатия Get Started")
