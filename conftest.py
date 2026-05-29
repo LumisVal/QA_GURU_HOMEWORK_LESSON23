@@ -64,11 +64,13 @@ def mobile_management():
 
     yield
 
-    attachments.add_screenshot(driver, "Screenshot after test")
+    session_id = driver.session_id
+
+    attachments.add_screenshot("Screenshot after test")
     attachments.add_page_source(driver)
 
-    if is_bstack():
-        attachments.add_browserstack_session_link(driver.session_id)
-        attachments.add_browserstack_video(driver.session_id)
-
     browser.quit()
+
+    if is_bstack():
+        attachments.add_browserstack_session_link(session_id)
+        attachments.add_browserstack_video(session_id)
