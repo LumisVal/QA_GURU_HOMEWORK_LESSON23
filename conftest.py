@@ -3,7 +3,7 @@ import os
 import pytest
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
-from selene import browser
+from selene.support.shared import browser
 
 from config.settings import settings
 from utils import attachments
